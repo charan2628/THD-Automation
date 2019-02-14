@@ -10,6 +10,14 @@ class ThdOverlayWrapper {
         this.switchToOverlay();
         $('div#root').waitForExist(10000);
         $('div#root a[data-automation-id=closeAddToCartOverlay]').click();
+        browser.switchToParentFrame();
+    }
+
+    closeConfirmPickupStoreOverlay() {
+        this.switchToOverlay();
+        $('div#root').waitForExist(10000);
+        $('div#root div.confirm-pickup-store-wrapper a.thd-overlay__close').click();
+        browser.switchToParentFrame();
     }
 }
 

@@ -5,7 +5,7 @@ class Header {
      * 
      * @return input element
      */
-    get inputElement() {
+    get searchInputField() {
         return $('input#headerSearch');
     }
 
@@ -34,6 +34,11 @@ class Header {
      */
     get cartButton() {
         return $('a#headerCart');
+    }
+
+    itemCountInCart() {
+        let count = $('a#headerCart span.MyCart__itemCount').getText();
+        return Number.parseInt(count, 10);
     }
 }
 
