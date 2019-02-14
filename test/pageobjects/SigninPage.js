@@ -1,7 +1,8 @@
 class SigninPage {
 
     get guestLoginEmailInputField() {
-        return $('input#guestLoginValue');
+        console.log('Add value 2');
+        return $('div#guest input#guestLoginValue');
     }
 
     get guestLoginContinueButton() {

@@ -1,3 +1,5 @@
+const PageUtills = require('../pageobjects/PageUtills');
+
 class Header {
 
     /**
@@ -37,6 +39,9 @@ class Header {
     }
 
     itemCountInCart() {
+        if(PageUtills.isCartPage) {
+            browser.pause(2000);
+        }
         let count = $('a#headerCart span.MyCart__itemCount').getText();
         return Number.parseInt(count, 10);
     }

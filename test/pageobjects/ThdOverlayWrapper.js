@@ -18,6 +18,7 @@ class ThdOverlayWrapper {
         $('div#root').waitForExist(10000);
         $('div#root div.confirm-pickup-store-wrapper a.thd-overlay__close').click();
         browser.switchToParentFrame();
+        console.log('done close overlay');
     }
 }
 

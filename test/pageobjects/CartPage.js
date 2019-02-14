@@ -3,7 +3,7 @@ const PageUtills = require('../pageobjects/PageUtills');
 class CartPage {
 
     get checkoutButton() {
-        return $('div#root div.cart-main-container div.toggleCertona div.cart-checkout-secondary div[data-automation-id=cartMainSummaryCheckoutOptionsContainer] form > button');
+        return $('div.rightRailWrapper div[data-automation-id=cartRightRailCheckoutOptionsContainer] form button');
     }
 
     get itemCount() {
