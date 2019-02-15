@@ -42,5 +42,10 @@ suite('Adding Items to Cart', () => {
         browser.pause(4000);
     })
 
-
+    test('placing order', () => {
+        $('select#ccMonth option[label="01 - January"]').click();
+        browser.pause(4000);
+        console.log(`SELECTED: ${$('select#ccMonth option[value=""]').isSelected()}`);
+        console.log(`SELECTED: ${$('select#ccMonth option[label="01 - January"]').isSelected()}`);
+    })
 })
