@@ -8,6 +8,7 @@ const CartPage = require('../pageobjects/CartPage');
 const SigninPage = require('../pageobjects/SigninPage');
 
 suite('Adding Items to Cart', () => {
+
     suiteSetup(() => {
         Page.open('https://www.homedepot.com/');
     })
@@ -40,4 +41,6 @@ suite('Adding Items to Cart', () => {
         SigninPage.guestLoginContinueButton.click();
         browser.pause(4000);
     })
+
+
 })
