@@ -36,13 +36,10 @@ suite('Adding Items to Cart', () => {
         if(!PageUtills.isSigninPage) {
             ThdOverlayWrapper.closeConfirmPickupStoreOverlay();
         }
-        browser.pause(2000);
-        //console.log('TITLE: ', browser.getTitle());
-        
-        // SigninPage.guestLoginEmailInputField.addValue('midoriya@izuku.com');
-        // expect(SigninPage.guestLoginEmailInputField.getValue()).to.equal('midoriya@izuku.com');
-        // SigninPage.guestLoginContinueButton.click();
-        // browser.pause(4000);
+        SigninPage.guestLoginEmailInputField.addValue('midoriya@izuku.com');
+        expect(SigninPage.guestLoginEmailInputField.getValue()).to.equal('midoriya@izuku.com');
+        SigninPage.guestLoginContinueButton.click();
+        browser.pause(4000);
     })
 
 

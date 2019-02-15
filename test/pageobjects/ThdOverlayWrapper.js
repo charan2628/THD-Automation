@@ -1,3 +1,5 @@
+const PageUtills = require('../pageobjects/PageUtills');
+
 class ThdOverlayWrapper {
     
     switchToOverlay() {
@@ -17,8 +19,9 @@ class ThdOverlayWrapper {
         this.switchToOverlay();
         $('div#root').waitForExist(10000);
         $('div#root div.confirm-pickup-store-wrapper a.thd-overlay__close').click();
-        browser.switchToParentFrame();
-        console.log('done close overlay');
+        browser.pause(700);
+        if(PageUtills.isSigninPage)
+            browser.switchToFrame(null);
     }
 }
 
