@@ -1,11 +1,11 @@
 class SigninPage {
 
     get guestLoginEmailInputField() {
-        return $('div#guest input#guestLoginValue');
+        return $('span#guestEmail input');
     }
 
     get guestLoginContinueButton() {
-        return $('a[ng-click*=continueAsGuest]')
+        return $('button[name=continueAsGuestButton]');
     }
 }
 
