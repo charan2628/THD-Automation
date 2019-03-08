@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@wdio/reporter": "^5.7.0",
     "chai": "^4.2.0",
+    "prettyjson": "^1.2.1",
     "webdriverio": "^5.4.15"
   },
   "devDependencies": {

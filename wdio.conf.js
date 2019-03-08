@@ -1,3 +1,5 @@
+const HTMLReporter = require('./test/reporter/HTMLReporter/HTMLReporter');
+
 exports.config = {
     //
     // ====================
@@ -105,7 +107,9 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter.html
-    reporters: ['dot', 'spec'],
+    reporters: [[HTMLReporter, {
+        someProperty: 'foo'  
+    }]],
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
