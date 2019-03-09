@@ -7,21 +7,44 @@ module.exports =  class HTMLReporter extends WDIOReporter {
     constructor(options) {
         options = Object.assign(options, {stdout: true})
         super(options)
+        this.metaData = {};
         this.features = [];
         this.scenario = {};
         this.feature = {};
         this.featureFlag = false;
         this.scenarioFlag = false;
+        this.featuresPassed = 0;
+        this.featuresFailed = 0;
+        this.scenariosPassed = 0;
+        this.scenariosFailed = 0;
+        this.totalScenariosPassed = 0;
+        this.totalScenariosFailed = 0;
+        this.testsPassed = 0;
+        this.testsFailed = 0;
+        this.totalTestsPassed = 0;
+        this.totalTestsFailed = 0;
     }
     onRunnerStart(runner) {
-        this.write(`HTML Reporter: 😒 Tests Starting Running on ${runner.capabilities.browserName} \n\n`);
+        this.metaData.browser = runner.capabilities.browserName + ' v' + runner.capabilities.browserVersion;
+        this.metaData.startTime = new Date(runner.start).toString();
     }
 
     onRunnerEnd(runner) {
+        this.metaData.duration = runner.duration;
+        this.metaData.scenarios = {};
+        this.metaData.features = {};
+        this.metaData.tests = {};
+        this.metaData.scenarios.passed = this.totalScenariosPassed;
+        this.metaData.scenarios.failed = this.totalScenariosFailed;
+        this.metaData.features.failed = this.featuresFailed;
+        this.metaData.features.passed = this.featuresPassed;
+        this.metaData.tests.passed = this.totalTestsPassed;
+        this.metaData.tests.failed = this.totalTestsFailed;
+        let data = this.createData()
         if(this.options.outputDir)
-            this.createTestReport(this.features, this.options.outputDir);
+            this.createTestReport(data, this.options.outputDir);
         else {
-          this.createTestReport(this.features, path.normalize(__dirname+"/../reports"));
+          this.createTestReport(data, path.normalize(__dirname+"/../reports"));
         }
     }
 
@@ -45,9 +68,29 @@ module.exports =  class HTMLReporter extends WDIOReporter {
         if(this.scenarioFlag) {
             this.scenarioFlag = false;
             this.feature.scenarios.push(this.scenario);
+            if(this.testsFailed !== 0) {
+                this.scenariosFailed++;
+                this.totalScenariosFailed++;
+                this.testsPassed = 0;
+                this.testsFailed = 0;
+            } else {
+                this.scenariosPassed++;
+                this.totalScenariosPassed++;
+                this.testsPassed = 0;
+                this.testsFailed = 0;
+            }
         } else if (this.featureFlag) {
             this.featureFlag = false;
             this.features.push(this.feature);
+            if(this.scenariosFailed !== 0) {
+                this.featuresFailed++;
+                this.scenariosFailed = 0;
+                this.scenariosPassed = 0;
+            } else {
+                this.featuresPassed++;
+                this.scenariosFailed = 0;
+                this.scenariosPassed = 0;
+            }
         }
     }
 
@@ -57,6 +100,8 @@ module.exports =  class HTMLReporter extends WDIOReporter {
                 title: test.title,
                 result: true
             })
+            this.testsPassed++;
+            this.totalTestsPassed++;
         }
     }
 
@@ -66,6 +111,15 @@ module.exports =  class HTMLReporter extends WDIOReporter {
                 title: test.title,
                 result: false
             })
+            this.testsFailed++;
+            this.totalTestsFailed++;
+        }
+    }
+
+    createData() {
+         return {
+            metaData: this.metaData,
+            features: this.features
         }
     }
 
