@@ -79,7 +79,6 @@ module.exports =  class HTMLReporter extends WDIOReporter {
     }
 
     writeDataToFile(data, testsOutputPath) {
-        console.log(testsOutputPath);
         let dataJS = 'let data = ' + JSON.stringify(data) + ' \n window.data = data';
         fs.writeFile(testsOutputPath + "/data.js", dataJS, 'utf-8', err => {
             if(err) this.write(err.message + "\n");
@@ -106,10 +105,7 @@ module.exports =  class HTMLReporter extends WDIOReporter {
     }
 
     moveAssets(testsOutputPath) {
-        fs.copyFile('test/reporter/HTMLReporter/assets/index.js', testsOutputPath + '/index.js', (err) => {
-            if(err) this.write(err.message + "\n");
-        });
-        fs.copyFile('test/reporter/HTMLReporter/assets/style.css', testsOutputPath + '/style.css', (err) => {
+        fs.copyFileSync(path.normalize(__dirname+"/assets/index.js"), testsOutputPath + '/index.js', (err) => {
             if(err) this.write(err.message + "\n");
         });
     }
